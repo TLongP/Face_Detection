@@ -8,4 +8,4 @@
 - [ ] add a function to create data for training
 
 ## Model Summary
-![Alt text](assets/Model.jpg?raw=true "Title")
+![Alt text](assets/Model.png?raw=true "Title")
