@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+
+aug_data/test/images/*.jgp
+aug_data/test/labels/*.json
+
+aug_data/train/images/*.jgp
+aug_data/train/labels/*.json
+
+aug_data/val/images/*.jgp
+aug_data/val/labels/*.json
+
+
