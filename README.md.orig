@@ -1,0 +1,14 @@
+# Face_Detection
+
+# To Do List
+
+<<<<<<< HEAD
+- [x] create a model and train the model 
+- [] enhance the model via add dropout, batchnormalization, ...
+- [] add custome callback for custome training
+- [] add a function to create data for training
+
+## Model Summary
+=======
+- [x] first
+>>>>>>> 18469bd2c9f19bb9d4f9ceda66887d38a78354af
