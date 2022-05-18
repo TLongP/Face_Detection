@@ -13,4 +13,4 @@ aug_data/val/labels/*.json
 data/images/*.jgp
 data/images/*.json
 
-aug_data/
+/aug_data
