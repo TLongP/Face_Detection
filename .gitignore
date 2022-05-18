@@ -10,4 +10,5 @@ aug_data/train/labels/*.json
 aug_data/val/images/*.jgp
 aug_data/val/labels/*.json
 
-
+data/images/*.jgp
+data/images/*.json
