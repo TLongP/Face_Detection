@@ -11,5 +11,5 @@
 
 ![Alt text](assets/Model.png?raw=true "Title")
 
-The first Dense-Output layer returns objectness.
-The second returns coordinates for the corner( upper left and lower right coordinates)
+- The first Dense-Output layer returns objectness.
+- The second returns coordinates for the corner( upper left and lower right coordinates)
