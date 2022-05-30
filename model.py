@@ -19,7 +19,7 @@ class FaceTracker(Model):
         self.output_layer_2 = Dense(4,activation="sigmoid")
 
 
-    def call(self,inputs):
+    def call(self,inputs,**kwargs):
         """put all the layer together for computation"""
         X = self.vgg(inputs)
         X = self.max_pooling_1(X)
@@ -33,14 +33,42 @@ class FaceTracker(Model):
 
         # eturn 2 "values" the first is objectness 2nd is the coordinate
         return X1,X2
+    def compile(self,optimizer,classweight=1,coordweight=1,**kwargs):
+        super().compile(**kwargs)
+        self.optimizer = optimizer
+        self.classweight = classweight
+        self.coordweight = coordweight
 
+
+    def train_step(self,inputs,training=True,**kwargs):
+        X,Y = inputs
+        with tf.GradientTape() as tape:
+            Y_ = self(X,training=training)
+            batch_classloss = class_loss(Y[0],Y_[0])
+            batch_coordloss = localization_loss(Y[1],Y_[1]) 
+            total_loss = self.coordweight * batch_coordloss + self.classweight * batch_classloss
+        grad = tape.gradient(total_loss, self.trainable_variables)
+        self.optimizer.apply_gradients(zip(grad,self.trainable_variables))
+        return {"total_loss":total_loss,
+                "classloss":batch_classloss,
+                "coordloss":batch_coordloss}
+
+    def test_step(self,inputs,training=False,**kwargs):
+        X,Y = inputs
+        Y_ = self(X,training=training)
+        batch_classloss = class_loss(Y[0],Y_[0])
+        batch_coordloss = localization_loss(Y[1],Y_[1]) 
+        total_loss = self.coordweight * batch_coordloss + self.classweight * batch_classloss
+        return {"total_loss":total_loss,
+        "classloss":batch_classloss,
+        "coordloss":batch_coordloss}
 
     def get_config(self):
         """ Use this to save custome class
             I will fix this
         """
         base_config = super().get_config()
-        return {**base_config}
+        return {**base_config,"classweight":self.classweight,"coordweight":self.coordweight}
 
 class ObjectAccuracy(tf.keras.metrics.Metric):
     """ with this class I want a custome accuracy
@@ -85,19 +113,3 @@ def localization_loss(coord_true, coord_predict):
     return delta_coord + delta_size
 
 
-def compute_batch_loss(model,X,Y,training=False,class_weight=0.5,coord_weight=1):
-    """compute the loss function"""
-    Y_ = model(X,training=training)
-    batch_class_losses = class_loss(Y[0],Y_[0])
-    coord_loss = localization_loss(Y[1],Y_[1]) 
-    return class_weight * batch_class_losses + coord_weight * coord_loss
-
-
-def gradient(model,X,Y,training=True):
-    """compute the gradient for the batch
-        return is the loss and the gradient
-    """
-    with tf.GradientTape() as tape:
-        batch_loss = compute_batch_loss(model,X,Y,training=training)
-    return batch_loss, tape.gradient(batch_loss,model.trainable_variables)
-    
