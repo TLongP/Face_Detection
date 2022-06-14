@@ -6,7 +6,7 @@
 - [ ] enhance the model via add dropout, batchnormalization, ...
 - [ ] add a function to create data for training
 
-## Model Summary
+# Model Summary
 
 ![Alt text](pics/Model.png?raw=true "model")
 
@@ -19,7 +19,7 @@ This model use convolutional layer( no Dense) so it can work with all input_shap
 - Conv_Output2 has kernel size (1,1) and padding "valid" with 4 filters, this represents the coordinates of the upper-left and botten-right corner of the box
 Note that we use sigmoid function in both output layer!
 
-# Output of the model
+## Output of the model
 
 ![Alt text](pics/Output.png?raw=true "output")
 
