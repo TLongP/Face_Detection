@@ -5,6 +5,7 @@
 - [x] create a model and train the model 
 - [ ] enhance the model via add dropout, batchnormalization, ...
 - [ ] add a function to create data for training
+- [ ] enhance the model with face recognition
 
 # Model Summary
 
