@@ -86,5 +86,5 @@ Then the tuple $(X_1,X_2,X_1')$ will be :
 - $X_1$ and $X_1'$ will be the images of the same person, but they are different pictures.
 - $X_2$ is picture of another person
 
-So overall we have 4860 trainings pair.
+So overall we have 5400 trainings pair.
 Further more we can add a 4th folder which contains persons which are differnt to person 1,2 and 3. This folders must not contains picture of the same person but picture of this folder will only be taken as $X_2$!
